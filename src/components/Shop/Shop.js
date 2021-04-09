@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import './Shop.css'
 import Product from '../Product/Product';
-import Cart from '../../Cart/Cart';
-import { addToDatabaseCart, getDatabaseCart } from '../../../utilities/databaseManager';
+import Cart from '../Cart/Cart';
+import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
 import { Link } from 'react-router-dom';
 
 
@@ -11,7 +11,7 @@ const Shop = () => {
     // const first10 = fakeData.slice(0, 10);
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-
+    // const [search, setSearch] = useState('');
     useEffect(() => {
         fetch('https://stark-springs-54483.herokuapp.com/products')
         .then(res => res.json())
@@ -30,6 +30,9 @@ const Shop = () => {
         .then(res => res.json())
         .then(data => setCart(data))
     }, [])
+    // const handleSearch = event =>{
+    //     setSearch(event.target.value);
+    // }
     const handleAddProduct = (product) => {
         const toBeaddedKey = product.key;
         const sameProduct = cart.find(pd => pd.key === toBeaddedKey);
@@ -52,7 +55,7 @@ const Shop = () => {
     return (
         <div className="twin-container">
             <div className="product-container">
-
+            {/* <input type="text" onBlur={handleSearch} placeholder="search product"/> */}
                 {
                     products.map(pd => <Product
                         key={pd.key}

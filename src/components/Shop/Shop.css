@@ -1,4 +1,4 @@
-/* .twin-container{
+.twin-container{
     display : flex ;
 }
 .product-container{
@@ -6,5 +6,4 @@
     margin-left: 20px;
     margin-right: 5px;
     border-right : 1px solid lightgrey;
-} */
-
+}

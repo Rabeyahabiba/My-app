@@ -1,7 +1,7 @@
 import React, { createContext, useState } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
-import Shop from './components/Header/Shop/Shop';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,6 +15,7 @@ import ProductDetail from './components/ProductDetail/ProductDetail';
 import Shipment from './components/Shipment/Shipment';
 import Login from './components/Login/Login';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Shop from './components/Shop/Shop';
 
 export const UserContext =createContext();
 
@@ -42,7 +43,7 @@ function App(props) {
               <PrivateRoute path ="/shipment">
                 <Shipment></Shipment>
               </PrivateRoute>
-              <Route exact path ="/shop">
+              <Route exact path ="/">
            <Shop></Shop>
            </Route>
            <Route path ="/product/:productKey">
