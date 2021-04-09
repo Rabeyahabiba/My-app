@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import fakeData from '../../../fakeData';
 import { useState } from 'react';
 import './Shop.css'
 import Product from '../Product/Product';
@@ -9,20 +8,28 @@ import { Link } from 'react-router-dom';
 
 
 const Shop = () => {
-    const first10 = fakeData.slice(0, 10);
-    const [products, setProducts] = useState(first10);
+    // const first10 = fakeData.slice(0, 10);
+    const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+
+    useEffect(() => {
+        fetch('https://stark-springs-54483.herokuapp.com/products')
+        .then(res => res.json())
+        .then (data => setProducts(data))
+    }, [])
     useEffect(() => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
-        const previousCart = productKeys.map(existingKey => {
-            const product = fakeData.find(pd => pd.key === existingKey);
-            product.quantity = savedCart[existingKey];
-            console.log(existingKey, savedCart[existingKey]);
-            return product;
+        fetch ( 'https://stark-springs-54483.herokuapp.com/productsByKeys', {
+            method : 'POST',
+            headers: {
+                'content-Type' : 'application/json'
+            },
+             body : JSON.stringify(productKeys)
         })
-        setCart(previousCart);
-    })
+        .then(res => res.json())
+        .then(data => setCart(data))
+    }, [])
     const handleAddProduct = (product) => {
         const toBeaddedKey = product.key;
         const sameProduct = cart.find(pd => pd.key === toBeaddedKey);

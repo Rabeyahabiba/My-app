@@ -38,8 +38,10 @@ function Login() {
           isSignedIn: true,
           name: displayName,
           email: email,
-          photo: photoURL
-        }
+          photo: photoURL,
+          success:true
+        };
+        setUserToken();       
          setUser (signedInUser);
         // console.log(displayName, photoURL, email);
       })
@@ -48,7 +50,13 @@ function Login() {
         console.log(err.message);
       })
   }
-
+  const setUserToken = () => {
+    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+      sessionStorage.setItem('token', idToken)
+    }).catch(function(error) {
+   
+    });
+  }
   const handleFbSignIn =() =>{ 
      firebase.auth().signInWithPopup(fbProvider)
     .then((result) => {
